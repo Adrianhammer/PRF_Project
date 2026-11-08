@@ -1,0 +1,9 @@
+flask
+pandas
+plotly
+eurostat
+matplotlib
+seaborn
+statsmodels
+scipy
+ipykernel
