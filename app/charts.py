@@ -42,11 +42,15 @@ def bar_chart(df, indicator):
 def scatter_chart(df):
     """Scatter plot of cars per 1000 inhabitants vs emissions per person, one dot per country"""
     fig = px.scatter(
-        df,
+        df.sort_values("year"),
         x="cars_per_1000",
         y="emission_pc",
         hover_name="country_name",
         text="country",
+        animation_frame="year",
+        animation_group="country",
+        range_x=[0, df["cars_per_1000"].max() * 1.05],
+        range_y=[0, df["emission_pc"].max() * 1.05],
         labels={
             "cars_per_1000": INDICATORS["cars_per_1000"],
             "emission_pc": INDICATORS["emission_pc"],

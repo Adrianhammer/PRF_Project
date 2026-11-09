@@ -28,7 +28,7 @@ def index():
             data.yearly_average("emission_pc"), "emission_pc"
         ),
         ranking_chart=charts.bar_chart(year_data, "emission_pc"),
-        scatter_chart=charts.scatter_chart(year_data),
+        scatter_chart=charts.scatter_chart(data.df),
         findings=FINDINGS,
     )
 
