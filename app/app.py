@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import charts
 from flask import Flask
 
 from data import TransportData
@@ -22,3 +23,9 @@ def index():
 @app.route("/countries")
 def countries():
     return data.countries()
+
+
+@app.route("/test")
+def test():
+    year_data = data.one_year(2024)
+    return charts.scatter_chart(year_data)
