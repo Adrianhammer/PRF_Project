@@ -69,6 +69,10 @@ class TransportData:
         """Return all countries for a single year (for bar charts and scatter plots)."""
         is_year = self.df["year"] == year
         return self.df[is_year]
+    
+    def yearly_average(self, indicator):
+        """Return average across all countries based on the indicator column"""
+        return self.df.groupby("year", as_index=False)[indicator].mean()
 
     def key_stats(self, df, indicator):
         """Return a dict of headline numbers for one indicator in a filtered table."""

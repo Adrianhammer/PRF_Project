@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard · Transport in Europe{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-1">Transport in Europe: cars and emissions</h1>
+<p class="text-muted mb-4">
+    How many cars do European countries have, and how much do they emit from transport?
+    Eurostat data for {{ stats.latest_year - stats.first_year + 1 if stats else "" }} years,
+    {{ stats.first_year }}–{{ stats.latest_year }}.
+</p>
+
+{# ---------- Headline numbers ---------- #}
+{% if stats %}
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card card-body stat">
+            <div class="stat-label">Avg. transport emissions per person, {{ stats.latest_year }}</div>
+            <div class="stat-value">{{ stats.average }} t</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card card-body stat">
+            <div class="stat-label">Change since {{ stats.first_year }}</div>
+            <div class="stat-value {% if stats.change_pct < 0 %}text-success{% elif stats.change_pct > 0 %}text-danger{% endif %}">
+                {{ "%+.1f"|format(stats.change_pct) }}%
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card card-body stat">
+            <div class="stat-label">Highest in {{ stats.latest_year }}</div>
+            <div class="stat-value">{{ stats.highest }}</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card card-body stat">
+            <div class="stat-label">Lowest in {{ stats.latest_year }}</div>
+            <div class="stat-value">{{ stats.lowest }}</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{# ---------- Key findings (shown only when the list in app.py has items) ---------- #}
+{% if findings %}
+<div class="card card-body mb-4 findings">
+    <h2 class="h5">Key findings</h2>
+    <ul class="mb-0">
+        {% for finding in findings %}
+            <li>{{ finding }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{# ---------- Charts ---------- #}
+<div class="card card-body mb-4">
+    <h2 class="h5 mb-1">Emissions over time</h2>
+    <p class="text-muted small mb-0">Average transport emissions per person across all countries. Each country counts the same.</p>
+    {{ trend_chart | safe }}
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card card-body h-100">
+            <h2 class="h5 mb-1">Countries compared, {{ latest_year }}</h2>
+            <p class="text-muted small mb-0">Transport emissions per person, highest first.</p>
+            {{ ranking_chart | safe }}
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card card-body h-100">
+            <h2 class="h5 mb-1">Cars and emissions, {{ latest_year }}</h2>
+            <p class="text-muted small mb-0">Each dot is a country. Hover for details.</p>
+            {{ scatter_chart | safe }}
+        </div>
+    </div>
+</div>
+
+<p class="mt-4">
+    <a class="btn btn-outline-primary" href="{{ url_for('explore') }}">Explore the data yourself →</a>
+</p>
+{% endblock %}

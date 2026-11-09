@@ -5,6 +5,8 @@ from flask import Flask, render_template, request
 
 from data import INDICATORS, TransportData
 
+FINDINGS = ["some finding explained here"]
+
 BASE_DIR = Path(__file__).parent.parent
 DATA_PATH = BASE_DIR / "data" / "processed" / "panel.csv"
 
@@ -16,19 +18,19 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     first_year, last_year = data.year_range()
-    n_countries = len(data.countries())
-    return f"{n_countries} countries, {first_year}-{last_year}"
+    year_data = data.one_year(last_year)
 
-
-@app.route("/countries")
-def countries():
-    return data.countries()
-
-
-@app.route("/test")
-def test():
-    year_data = data.one_year(2024)
-    return charts.scatter_chart(year_data)
+    return render_template(
+        "index.html",
+        latest_year=last_year,
+        stats=data.key_stats(data.df, "emission_pc"),
+        trend_chart=charts.trend_chart(
+            data.yearly_average("emission_pc"), "emission_pc"
+        ),
+        ranking_chart=charts.bar_chart(year_data, "emission_pc"),
+        scatter_chart=charts.scatter_chart(year_data),
+        findings=FINDINGS,
+    )
 
 
 @app.route("/explore")

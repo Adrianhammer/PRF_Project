@@ -7,6 +7,7 @@ def _to_html(fig):
     """Turn a plotly figure into an HTML snippet for a template"""
     return fig.to_html(full_html=False, include_plotlyjs="cdn")
 
+
 def line_chart(df, indicator):
     """Line chart of one indicator over time, one line per country."""
     fig = px.line(
@@ -23,6 +24,7 @@ def line_chart(df, indicator):
     )
     return _to_html(fig)
 
+
 def bar_chart(df, indicator):
     """Bar chart of one indicator of for a single year, one bar per country, highest first"""
     fig = px.bar(
@@ -35,6 +37,7 @@ def bar_chart(df, indicator):
         },
     )
     return _to_html(fig)
+
 
 def scatter_chart(df):
     """Scatter plot of cars per 1000 inhabitants vs emissions per person, one dot per country"""
@@ -50,4 +53,19 @@ def scatter_chart(df):
         },
     )
     fig.update_traces(textposition="top center")
+    return _to_html(fig)
+
+
+def trend_chart(df, indicator):
+    """Trend chart"""
+    fig = px.line(
+        df,
+        x="year",
+        y=indicator,
+        markers=True,
+        labels={
+            "year": "Year",
+            indicator: INDICATORS[indicator],
+        },
+    )
     return _to_html(fig)
