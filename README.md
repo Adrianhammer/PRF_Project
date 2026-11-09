@@ -2,6 +2,9 @@
 
 Group project for PRF at ISEG, 2026/27.
 
+### live link:
+https://adrianhammer.pythonanywhere.com/
+
 ## Setup
 
 You need **Python 3.10+**, **Git** and **VS Code** (with the Python and Jupyter extensions).
