@@ -1,25 +1,24 @@
 from pathlib import Path
 
-import pandas as pd
 from flask import Flask
+
+from data import TransportData
 
 BASE_DIR = Path(__file__).parent.parent
 DATA_PATH = BASE_DIR / "data" / "processed" / "panel.csv"
 
-panel = pd.read_csv(DATA_PATH)
+data = TransportData(DATA_PATH)
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    n_countries = panel["country"].nunique()
-    first_year = panel["year"].min()
-    last_year = panel["year"].max()
+    first_year, last_year = data.year_range()
+    n_countries = len(data.countries())
     return f"{n_countries} countries, {first_year}-{last_year}"
 
 
 @app.route("/countries")
 def countries():
-    country_codes = panel["country"].unique().tolist()
-    return f"{sorted(country_codes)}"
+    return data.countries()
