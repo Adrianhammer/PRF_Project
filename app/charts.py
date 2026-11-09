@@ -46,7 +46,7 @@ def scatter_chart(df):
         text="country",
         labels={
             "cars_per_1000": INDICATORS["cars_per_1000"],
-            "emissions_pc": INDICATORS["emission_pc"],
+            "emission_pc": INDICATORS["emission_pc"],
         },
     )
     fig.update_traces(textposition="top center")

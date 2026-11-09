@@ -72,7 +72,7 @@ class TransportData:
 
     def key_stats(self, df, indicator):
         """Return a dict of headline numbers for one indicator in a filtered table."""
-        if df.dempty:
+        if df.empty:
             return None
         
         first_year = int(df["year"].min())
