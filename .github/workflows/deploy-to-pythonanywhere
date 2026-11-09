@@ -1,0 +1,37 @@
+name: Deploy to PythonAnywhere
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  API_TOKEN: ${{ secrets.PYTHONANYWHERE_API_TOKEN }}
+  PA_USERNAME: adrianhammer
+  CONSOLE_ID: ${{ secrets.CONSOLE_ID }}
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: deploy to PythonAnywhere
+    runs-on: ubuntu-latest
+    concurrency: production 
+    steps:
+
+      - name: Pull latest code
+        run: |
+          curl -f -X POST \
+            -H "Authorization: Token $API_TOKEN" \
+            --data-urlencode $'input=cd ~/PRF_Project && git pull\n' \
+            "https://www.pythonanywhere.com/api/v0/user/$PA_USERNAME/consoles/$CONSOLE_ID/send_input/"
+
+      - name: Wait for git pull
+        run: sleep 10
+
+      - name: Reload web app
+        run: |
+          curl -f -X POST \
+            -H "Authorization: Token $API_TOKEN" \
+            "https://www.pythonanywhere.com/api/v0/user/$PA_USERNAME/webapps/$PA_USERNAME.pythonanywhere.com/reload/"

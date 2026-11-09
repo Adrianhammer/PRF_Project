@@ -5,7 +5,7 @@ from flask import Flask, render_template, request
 
 from data import INDICATORS, TransportData
 
-FINDINGS = ["some finding explained here"]
+FINDINGS = ["TODO: add key findings here"]
 
 BASE_DIR = Path(__file__).parent.parent
 DATA_PATH = BASE_DIR / "data" / "processed" / "panel.csv"
