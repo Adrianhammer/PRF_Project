@@ -36,6 +36,7 @@ def bar_chart(df, indicator):
             "country_name": "Country",
         },
     )
+    fig.update_xaxes(tickangle=-45)
     return _to_html(fig)
 
 
