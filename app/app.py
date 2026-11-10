@@ -5,7 +5,28 @@ from flask import Flask, render_template, request
 
 from data import INDICATORS, TransportData
 
-FINDINGS = ["TODO: lol"]
+FINDINGS = [    "Wealth drives motorisation, but the effect flattens out. Above about "
+    "€57,000 GDP per capita, more income no longer adds cars.",
+
+    "Older fleets mean more cars. Ten percentage points more cars over ten "
+    "years add 66 cars per 1,000 inhabitants.",
+
+    "The vehicle stock is the main driver of emissions. 100 more cars per "
+    "1,000 inhabitants add 0.28 tonnes of CO₂ per capita, about 13% of the "
+    "average.",
+
+    "At the same vehicle stock, richer countries emit less. Income raises "
+    "emissions through the number of cars, and lowers them through efficiency.",
+
+    "Fleet age lowers emissions, so it measures how much people drive rather "
+    "than vehicle technology. Old fleets stand still.",
+
+    "Transport emissions fell 14% in 2020 and never returned to the "
+    "pre-pandemic level. 2024 is still 13% below 2019.",
+
+    "Luxembourg is excluded. Fuel sold to drivers from neighbouring countries "
+    "distorts both emissions and GDP per capita.",
+]
 
 BASE_DIR = Path(__file__).parent.parent
 DATA_PATH = BASE_DIR / "data" / "processed" / "panel.csv"
