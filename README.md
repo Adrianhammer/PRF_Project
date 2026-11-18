@@ -7,7 +7,7 @@ https://adrianhammer.pythonanywhere.com/
 
 ## Setup
 
-You need **Python 3.10+**, **Git** and **VS Code** (with the Python and Jupyter extensions).
+You need **Python 3.10+**, **Git** and your editor of choice (If you use VS Code, install the Python and Jupyter extensions)
 
 ```bash
 git clone https://github.com/Adrianhammer/PRF_Project.git
@@ -36,6 +36,5 @@ Open `notebooks/transport_emissions.ipynb` in VS Code, choose **Select Kernel â†
 and click **Run All**. The last cell saves the data to `data/processed/panel.csv`,
 which the app reads. Commit that file when it changes.
 
-## Adding a package
-
-Add it to `requirements.txt` and commit. The next `./start.sh` installs it.
+## Report
+The report can be found under report/. Both in .PDF and .DOCX format.
