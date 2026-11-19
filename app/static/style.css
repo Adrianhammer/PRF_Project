@@ -1,5 +1,230 @@
+/* ==========================================================================
+   Transport in Europe: styles matching the project presentation
+   Palette and font taken from the slide deck.
+   ========================================================================== */
+
+:root {
+    --navy: #11232E;        /* title slides, headings */
+    --teal: #0E6E6B;        /* accent: labels, numbers, feature cards */
+    --teal-dark: #0A5552;   /* hover state */
+    --teal-light: #6FC3BF;  /* labels on dark backgrounds */
+    --teal-pale: #CFE4E2;   /* focus rings, subtle highlights */
+    --orange: #C2651F;      /* highlighted / negative numbers */
+    --slate: #4A5663;       /* secondary text */
+    --muted: #7A8590;       /* captions */
+    --bg: #F1F3F5;          /* page background */
+    --border: #DFE1E3;      /* card outlines */
+
+    /* Make Bootstrap use the deck's font, colors and corners */
+    --bs-body-font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    --bs-body-color: var(--navy);
+    --bs-body-bg: var(--bg);
+    --bs-link-color-rgb: 14, 110, 107;
+    --bs-link-hover-color-rgb: 10, 85, 82;
+    --bs-border-color: var(--border);
+    --bs-border-radius: 4px;
+}
+
 body {
-    background-color: #f6f7f9;
+    background-color: var(--bg);
+    color: var(--navy);
+}
+
+/* ---------- Navigation ---------- */
+.site-nav {
+    background-color: var(--navy);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.site-nav .navbar-brand {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.brand-tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+}
+
+.site-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+}
+
+.site-nav .nav-link:hover {
+    color: #fff;
+}
+
+.site-nav .nav-link.active {
+    color: #fff;
+    border-bottom-color: var(--teal-light);
+}
+
+/* ---------- Title band (dashboard) ---------- */
+.hero {
+    background-color: var(--navy);
+    color: #fff;
+    padding: 3rem 0 3.25rem;
+}
+
+.hero-title {
+    font-size: clamp(1.9rem, 4.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.12;
+    margin: 0.5rem 0 1rem;
+}
+
+.hero-sub {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.hero-rule {
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    opacity: 1;
+    max-width: 38rem;
+    margin: 0 0 1.25rem;
+}
+
+.hero-questions {
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 38rem;
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+}
+
+.hero-questions li {
+    margin-bottom: 0.3rem;
+}
+
+.hero-questions li::marker {
+    color: var(--teal-light);
+    font-weight: 600;
+}
+
+/* ---------- Small uppercase labels above headings ---------- */
+.eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.35rem;
+}
+
+.eyebrow--light {
+    color: var(--teal-light);
+}
+
+.eyebrow--warn {
+    color: var(--orange);
+}
+
+/* ---------- Headings ---------- */
+.page-title {
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.page-intro {
+    color: var(--slate);
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* ---------- Cards: flat, white, thin border ---------- */
+.card {
+    background-color: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+/* Big number + small caption, like the stat cards on the slides */
+.stat {
+    height: 100%;
+    padding: 1.1rem 1.25rem;
+}
+
+.stat-value {
+    font-size: clamp(1.2rem, 4.6vw, 1.75rem);
+    font-weight: 600;
+    color: var(--teal);
+    line-height: 1.15;
+    margin-bottom: 0.35rem;
+    overflow-wrap: break-word;
+}
+
+.stat-value--accent {
+    color: var(--orange);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--slate);
+    line-height: 1.35;
+}
+
+/* Filled teal card for the key message, like "RQ 2" and "Why" on the slides */
+.card-feature {
+    background-color: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+    padding: 1.5rem 1.75rem;
+}
+
+.findings-list {
+    margin: 0.5rem 0 0;
+    padding-left: 1.1rem;
+    columns: 2 22rem;
+    column-gap: 2.5rem;
+}
+
+.findings-list li {
+    break-inside: avoid;
+    margin-bottom: 0.75rem;
+    line-height: 1.45;
+}
+
+.findings-list li::marker {
+    color: var(--teal-light);
+}
+
+/* Chart cards */
+.chart-card {
+    padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.chart-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0;
+}
+
+/* "No data" message */
+.notice {
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--orange);
+    color: var(--slate);
+}
+
+/* ---------- Filters (Explore page) ---------- */
+.filter-card {
+    padding: 1.25rem;
 }
 
 .country-list {
@@ -8,20 +233,48 @@ body {
     padding-right: 0.25rem;
 }
 
-.stat {
-    height: 100%;
+.form-select,
+.form-control,
+.form-check-input {
+    background-color: #fff;
+    border-color: #C9D1D8;
 }
 
-.stat-label {
+.form-select,
+.form-control {
+    border-radius: 4px;
+}
+
+.form-select:focus,
+.form-control:focus,
+.form-check-input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 0.2rem var(--teal-pale);
+}
+
+.form-check-input:checked {
+    background-color: var(--teal);
+    border-color: var(--teal);
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+    --bs-btn-bg: var(--teal);
+    --bs-btn-border-color: var(--teal);
+    --bs-btn-hover-bg: var(--teal-dark);
+    --bs-btn-hover-border-color: var(--teal-dark);
+    --bs-btn-active-bg: var(--teal-dark);
+    --bs-btn-active-border-color: var(--teal-dark);
+    --bs-btn-focus-shadow-rgb: 14, 110, 107;
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 0.55rem 1.1rem;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+    border-top: 1px solid var(--border);
+    color: var(--muted);
     font-size: 0.8rem;
-    color: #6c757d;
-}
-
-.stat-value {
-    font-size: 1.4rem;
-    font-weight: 600;
-}
-
-.findings {
-    border-left: 4px solid #0d6efd;
+    padding: 1.5rem 0 2rem;
 }

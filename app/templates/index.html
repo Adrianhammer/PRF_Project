@@ -2,41 +2,55 @@
 
 {% block title %}Dashboard · Transport in Europe{% endblock %}
 
+{# ---------- Title band, like the title slide ---------- #}
+{% block hero %}
+<header class="hero">
+    <div class="container">
+        <div class="eyebrow eyebrow--light">Programming Foundations · Group 05</div>
+        <h1 class="hero-title">Transport in Europe:<br>Motorisation and Emissions</h1>
+        <p class="hero-sub">
+            Car ownership and transport emissions in 25 European countries{% if stats %},
+            {{ stats.first_year }}–{{ stats.latest_year }}{% endif %}.
+        </p>
+        <hr class="hero-rule">
+        <div class="eyebrow eyebrow--light">Research questions</div>
+        <ol class="hero-questions">
+            <li>What explains how many cars a country has per inhabitant?</li>
+            <li>What explains the transport emissions per capita?</li>
+        </ol>
+    </div>
+</header>
+{% endblock %}
+
 {% block content %}
-<h1 class="h3 mb-1">Transport in Europe: cars and emissions</h1>
-<p class="text-muted mb-4">
-    How many cars do European countries have, and how much do they emit from transport?
-    Eurostat data for {{ stats.latest_year - stats.first_year + 1 if stats else "" }} years,
-    {{ stats.first_year }}–{{ stats.latest_year }}.
-</p>
 
 {# ---------- Headline numbers ---------- #}
 {% if stats %}
-<div class="row g-3 mb-4">
-    <div class="col-6 col-md-3">
-        <div class="card card-body stat">
-            <div class="stat-label">Avg. transport emissions per person, {{ stats.latest_year }}</div>
+<div class="eyebrow">At a glance · {{ stats.latest_year }}</div>
+<h2 class="section-title">Transport emissions per person</h2>
+<div class="row g-3 mb-5">
+    <div class="col-6 col-lg-3">
+        <div class="card stat">
             <div class="stat-value">{{ stats.average }} t</div>
+            <div class="stat-label">CO₂-eq per person, average of all countries, {{ stats.latest_year }}</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="card card-body stat">
-            <div class="stat-label">Change since {{ stats.first_year }}</div>
-            <div class="stat-value {% if stats.change_pct < 0 %}text-success{% elif stats.change_pct > 0 %}text-danger{% endif %}">
-                {{ "%+.1f"|format(stats.change_pct) }}%
-            </div>
+    <div class="col-6 col-lg-3">
+        <div class="card stat">
+            <div class="stat-value stat-value--accent">{{ "%+.1f"|format(stats.change_pct) }} %</div>
+            <div class="stat-label">change since {{ stats.first_year }}</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="card card-body stat">
-            <div class="stat-label">Highest in {{ stats.latest_year }}</div>
+    <div class="col-6 col-lg-3">
+        <div class="card stat">
             <div class="stat-value">{{ stats.highest }}</div>
+            <div class="stat-label">highest in {{ stats.latest_year }}</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="card card-body stat">
-            <div class="stat-label">Lowest in {{ stats.latest_year }}</div>
+    <div class="col-6 col-lg-3">
+        <div class="card stat">
             <div class="stat-value">{{ stats.lowest }}</div>
+            <div class="stat-label">lowest in {{ stats.latest_year }}</div>
         </div>
     </div>
 </div>
@@ -44,9 +58,9 @@
 
 {# ---------- Key findings (shown only when the list in app.py has items) ---------- #}
 {% if findings %}
-<div class="card card-body mb-4 findings">
-    <h2 class="h5">Key findings</h2>
-    <ul class="mb-0">
+<div class="card card-feature mb-5">
+    <div class="eyebrow eyebrow--light">Key findings</div>
+    <ul class="findings-list">
         {% for finding in findings %}
             <li>{{ finding }}</li>
         {% endfor %}
@@ -55,30 +69,33 @@
 {% endif %}
 
 {# ---------- Charts ---------- #}
-<div class="card card-body mb-4">
-    <h2 class="h5 mb-1">Emissions over time</h2>
-    <p class="text-muted small mb-0">Average transport emissions per person across all countries. Each country counts the same.</p>
+<div class="eyebrow">The time series</div>
+<h2 class="section-title">Emissions over time</h2>
+<div class="card chart-card mb-5">
+    <p class="chart-note">Average transport emissions per person across all countries. Each country counts the same.</p>
     {{ trend_chart | safe }}
 </div>
 
 <div class="row g-4">
     <div class="col-lg-6">
-        <div class="card card-body h-100">
-            <h2 class="h5 mb-1">Countries compared, {{ latest_year }}</h2>
-            <p class="text-muted small mb-0">Transport emissions per person, highest first.</p>
+        <div class="eyebrow">Ranking · {{ latest_year }}</div>
+        <h2 class="section-title">Countries compared</h2>
+        <div class="card chart-card">
+            <p class="chart-note">Transport emissions per person, highest first.</p>
             {{ ranking_chart | safe }}
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="card card-body h-100">
-            <h2 class="h5 mb-1">Cars and emissions over time</h2>
-            <p class="text-muted small mb-0">Each dot is a country. Press ▶ to watch the years change, or drag the slider.</p>
+        <div class="eyebrow">Relationship</div>
+        <h2 class="section-title">Cars and emissions over time</h2>
+        <div class="card chart-card">
+            <p class="chart-note">Each dot is a country. Press ▶ to watch the years change, or drag the slider.</p>
             {{ scatter_chart | safe }}
         </div>
     </div>
 </div>
 
-<p class="mt-4">
-    <a class="btn btn-outline-primary" href="{{ url_for('explore') }}">Explore the data yourself →</a>
-</p>
+<div class="mt-5">
+    <a class="btn btn-primary" href="{{ url_for('explore') }}">Explore the data yourself →</a>
+</div>
 {% endblock %}
